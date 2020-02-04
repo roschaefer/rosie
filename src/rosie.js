@@ -326,7 +326,7 @@ Factory.prototype = {
    * @param {object=} options
    * @return {*}
    */
-  build: function(attributes, options) {
+  build: async function(attributes, options) {
     var result = this.attributes(attributes, options);
     var retval = null;
 
@@ -337,8 +337,8 @@ Factory.prototype = {
       retval = result;
     }
 
-    for (var i = 0; i < this.callbacks.length; i++) {
-      var callbackResult = this.callbacks[i](retval, this.options(options));
+    for (const callback of this.callbacks) {
+      var callbackResult = await callback(retval, this.options(options));
       retval = callbackResult || retval;
     }
     return retval;
@@ -349,7 +349,7 @@ Factory.prototype = {
     for (var i = 0; i < size; i++) {
       objs.push(this.build(attributes, options));
     }
-    return objs;
+    return Promise.all(objs);
   },
 
   /**
