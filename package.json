@@ -13,6 +13,10 @@
   ],
   "dependencies": {},
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "babel-jest": "^25.1.0",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "jest": "^24.8.0",
@@ -26,14 +30,15 @@
     "type": "git",
     "url": "git://github.com/rosiejs/rosie.git"
   },
-  "main": "src/rosie.js",
+  "main": "dist/rosie.js",
   "scripts": {
+    "build": "babel src --out-dir dist --ignore '**/*.test.js'",
     "pretest": "eslint src && prettier-check src/rosie.js src/__tests__/rosie.test.js README.md",
     "test": "jest",
     "watch": "jest --watch"
   },
   "files": [
-    "src/rosie.js"
+    "dist/rosie.js"
   ],
   "license": "MIT"
 }
